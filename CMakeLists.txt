@@ -4,12 +4,11 @@ project(BoostConan)
 ##### SETs
 set (CMAKE_BUILD_TYPE Release) 
 set (CMAKE_CXX_STANDARD 20)
-
 set (BUILD_SHARED_LIBS On)
 
 ##### Additional packages 
 
-find_package (Boost REQUIRED)
+find_package (Boost COMPONENTS log REQUIRED)
 
 ##### Include Dirs 
 
@@ -38,16 +37,11 @@ add_compile_options(-Wall
 
 file(GLOB_RECURSE SOURCES "src/*.cpp")
 
-add_executable(
-    main 
-    ${SOURCES} 
-    )
-    
+add_executable(main ${SOURCES})
 
 target_link_libraries(
     main 
-    boost
+    Boost::log
     pthread 
     m 
-    dl
-    )
+    dl)
